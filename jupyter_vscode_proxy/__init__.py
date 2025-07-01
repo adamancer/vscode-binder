@@ -43,6 +43,11 @@ def _get_cmd_factory(executable: str) -> Callable:
         # If not, start in 'current directory', which is $REPO_DIR in mybinder
         # but /home/jovyan (or equivalent) in JupyterHubs
         working_dir = os.getenv("CODE_WORKINGDIR", ".")
+        working_dir = os.path.join(working_dir, "python-ecology-lesson")
+        try:
+            os.mkdir(working_dir)
+        except FileExistsError:
+            pass
 
         extensions_dir = os.getenv("CODE_EXTENSIONSDIR", None)
 
