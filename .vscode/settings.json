@@ -8,5 +8,10 @@
         "**/.npm": true,
         "**/.yarn": true,
         "**/jupyter_vscode_proxy.egg-info": true
-    }
+    },
+    "editor.rulers": [
+        88
+    ],
+    "notebook.lineNumbers": "on",
+    "workbench.colorTheme": "Default Dark Modern"
 }
