@@ -117,7 +117,7 @@ def _get_cmd_factory(executable: str) -> Callable:
                                 '    "species.csv": "https://figshare.com/ndownloader/files/3299483",\n',
                                 '    "plots.csv": "https://figshare.com/ndownloader/files/3299474"\n',
                                 "}.items():\n",
-                                "    pd.read_csv(url).to_csv(data_dir / filename)",
+                                "    pd.read_csv(url).to_csv(data_dir / filename, index=False)",
                             ],
                         },
                         {
