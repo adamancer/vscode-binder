@@ -49,6 +49,23 @@ def _get_cmd_factory(executable: str) -> Callable:
         except FileExistsError:
             pass
 
+        # Add .vscode settings file to working directory
+        vscode_dir = os.path.join(working_dir, ".vscode")
+        try:
+            os.mkdir(vscode_dir)
+        except FileExistsError:
+            pass
+        with open(os.path.join(vscode_dir, "settings.json"), "w") as f:
+            json.dump(
+                {
+                    "editor.rulers": [88],
+                    "notebook.lineNumbers": "on",
+                    "workbench.colorTheme": "Default Dark Modern",
+                },
+                f,
+                indent=4,
+            )
+
         extensions_dir = os.getenv("CODE_EXTENSIONSDIR", None)
 
         cmd = get_inner_cmd()
