@@ -68,7 +68,7 @@ def _get_cmd_factory(executable: str) -> Callable:
             )
 
         # Create default notebook
-        with open(os.path.join(working_dir, "test.ipynb"), "w") as f:
+        with open(os.path.join(working_dir, "setup.ipynb"), "w") as f:
             json.dump(
                 {
                     "cells": [
@@ -79,28 +79,45 @@ def _get_cmd_factory(executable: str) -> Callable:
                             "source": [
                                 "# Test notebook\n",
                                 "\n",
-                                "This notebook tests that the environment required for the lesson is configured properly. It also provides the URLs required to access the files needed for the lesson.",
+                                "This notebook tests that the environment required for the lesson is configured properly and downloads the data needed for the lesson.\n",
+                                "\n",
+                                "**Warning:** MyBinder apps time out after ten minutes of inactivity. If the app times out, all files will be lost.",
                             ],
                         },
                         {
                             "cell_type": "code",
                             "execution_count": None,
-                            "id": "cf7207e5",
+                            "id": "5be4ac02",
                             "metadata": {},
                             "outputs": [],
                             "source": ["import pandas as pd\n", "import plotly"],
                         },
                         {
+                            "cell_type": "markdown",
+                            "id": "e5089d99",
+                            "metadata": {},
+                            "source": [
+                                "This cell downloads the files required for this lesson to the data directory:"
+                            ],
+                        },
+                        {
                             "cell_type": "code",
                             "execution_count": None,
-                            "id": "e5089d99",
+                            "id": "042b97a9",
                             "metadata": {},
                             "outputs": [],
                             "source": [
-                                "# URLs for data used in the lesson\n",
-                                'surveys = pd.read_csv("https://figshare.com/ndownloader/files/10717177")\n',
-                                'species = pd.read_csv("https://figshare.com/ndownloader/files/3299483")\n',
-                                'plots = pd.read_csv("https://figshare.com/ndownloader/files/3299474")',
+                                "from pathlib import Path\n",
+                                "\n",
+                                'data_dir = Path("data")\n',
+                                "data_dir.mkdir(exist_ok=True)\n",
+                                "\n",
+                                "for filename, url in {\n",
+                                '    "surveys.csv": "https://figshare.com/ndownloader/files/10717177",\n',
+                                '    "species.csv": "https://figshare.com/ndownloader/files/3299483",\n',
+                                '    "plots.csv": "https://figshare.com/ndownloader/files/3299474"\n',
+                                "}.items():\n",
+                                "    pd.read_csv(url).to_csv(data_dir / filename)",
                             ],
                         },
                         {
