@@ -67,6 +67,63 @@ def _get_cmd_factory(executable: str) -> Callable:
                 indent=4,
             )
 
+        # Create default notebook
+        with open(os.path.join(working_dir, "test.ipynb"), "w") as f:
+            json.dump(
+                {
+                    "cells": [
+                        {
+                            "cell_type": "markdown",
+                            "id": "cf7207e5",
+                            "metadata": {},
+                            "source": [
+                                "# Test notebook\n",
+                                "\n",
+                                "This notebook tests that the environment required for the lesson is configured properly. It also provides the URLs required to access the files needed for the lesson.",
+                            ],
+                        },
+                        {
+                            "cell_type": "code",
+                            "execution_count": None,
+                            "id": "cf7207e5",
+                            "metadata": {},
+                            "outputs": [],
+                            "source": ["import pandas as pd\n", "import plotly"],
+                        },
+                        {
+                            "cell_type": "code",
+                            "execution_count": None,
+                            "id": "e5089d99",
+                            "metadata": {},
+                            "outputs": [],
+                            "source": [
+                                "# URLs for data used in the lesson\n",
+                                'surveys = pd.read_csv("https://figshare.com/ndownloader/files/10717177")\n',
+                                'species = pd.read_csv("https://figshare.com/ndownloader/files/3299483")\n',
+                                'plots = pd.read_csv("https://figshare.com/ndownloader/files/3299474")',
+                            ],
+                        },
+                        {
+                            "cell_type": "code",
+                            "execution_count": None,
+                            "id": "6d409e01",
+                            "metadata": {},
+                            "outputs": [],
+                            "source": [],
+                        },
+                    ],
+                    "metadata": {
+                        "language_info": {
+                            "name": "python",
+                        },
+                    },
+                    "nbformat": 4,
+                    "nbformat_minor": 5,
+                },
+                f,
+                indent=4,
+            )
+
         extensions_dir = os.getenv("CODE_EXTENSIONSDIR", None)
 
         cmd = get_inner_cmd()
